@@ -2,18 +2,22 @@
 
 module eight_bit_comparator_top;
 
-   reg [7:0] A;
-   reg [7:0] B;
-   reg Lin;
-   reg Ein;
-   reg Gin;
+    // Inputs
+    reg [7:0] A;
+    reg [7:0] B;
+    reg Lin;
+    reg Ein;
+    reg Gin;
 
-   wire Less;
-   wire Equal;
-   wire Greater;
+    // Outputs
+    wire Less;
+    wire Equal;
+    wire Greater;
 
-   eight_bit_comparator COMPARATOR (A, B, Lin, Ein, Gin, Less, Equal, Greater);
+    // Instantion of the 8-bit comparator
+    eight_bit_comparator COMPARATOR (A, B, Lin, Ein, Gin, Less, Equal, Greater);
 
+    // Initialising the inputs
     initial begin
         A = 1; B = 1; Lin = 0; Ein = 1; Gin = 0;
         #1 
@@ -36,6 +40,7 @@ module eight_bit_comparator_top;
         A = 128; B = 95; Lin = 0; Ein = 0; Gin = 1;
     end
 
+    // Displaying the final output
     always @ (A or B or Lin or Ein or Gin) begin
         $monitor("<%d>: Input_A = %b, Input_B = %b, Input_Lin = %b, Input_Ein = %b, Input_Gin = %b, Less = %b, Equal = %b, Greater = %b",$time,A,B,Lin,Ein,Gin,Less,Equal,Greater);
     end

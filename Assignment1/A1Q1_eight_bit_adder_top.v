@@ -1,18 +1,23 @@
 module eight_bit_adder_top;
 
-   reg [7:0] A;
-   reg [7:0] B;
-   reg Cin;
+    // Inputs
+    reg [7:0] A;
+    reg [7:0] B;
+    reg Cin;
 
-   wire [7:0] Sum;
-   wire Carry;
+    // Outputs
+    wire [7:0] Sum;
+    wire Carry;
 
-   eight_bit_adder ADDER (A, B, Cin, Sum, Carry);
+    // Instantiation of the 8-bit adder module
+    eight_bit_adder ADDER (A, B, Cin, Sum, Carry);
 
+    // Displaying the output
     always @ (A or B or Cin or Sum or Carry) begin
         $display("<%d>: Input_A = %b, Input_B = %b, Input_Cin = %b, Sum = %b, Carry = %b",$time,A,B,Cin,Sum,Carry);
     end
 
+    // Initialising the inputs
     initial begin
         A = 1; B = 1; Cin = 0;
         #1 

@@ -2,12 +2,14 @@
 
 module eight_bit_comparator (x, y, lin, ein, gin, less, equal, greater);
 
+   // Inputs
    input [7:0] x;
    input [7:0] y;
    input lin;
    input ein;
    input gin;
 
+   // Outputs
    output less;
    wire less;
    output equal;
@@ -15,10 +17,12 @@ module eight_bit_comparator (x, y, lin, ein, gin, less, equal, greater);
    output greater;
    wire greater;
 
+   // Intermediate wires
    wire [6:0] intermediate_less;
    wire [6:0] intermediate_equal;
    wire [6:0] intermediate_greater;
 
+   // Instantiating the 8 one-bit comparator modules
    one_bit_comparator C7 (x[7], y[7], lin, ein, gin, intermediate_less[6], intermediate_equal[6], intermediate_greater[6]);
    one_bit_comparator C6 (x[6], y[6], intermediate_less[6], intermediate_equal[6], intermediate_greater[6], intermediate_less[5], intermediate_equal[5], intermediate_greater[5]);
    one_bit_comparator C5 (x[5], y[5], intermediate_less[5], intermediate_equal[5], intermediate_greater[5], intermediate_less[4], intermediate_equal[4], intermediate_greater[4]);
