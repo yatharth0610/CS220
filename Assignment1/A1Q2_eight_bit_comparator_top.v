@@ -17,37 +17,35 @@ module eight_bit_comparator_top;
 
     // Initialising the inputs
     initial begin
-
-        //We vary Lin, Ein, Gin as well, which represent whether the comparison done till now yields whether a is less,equal or greater than b.
-        // This provides for extending the 8 bit comparators into more bits. This is like varying Cin in Q1
-        A = 1; B = 1; Lin = 0; Ein = 1; Gin = 0; 
+        Lin = 0; Ein = 1; Gin = 0; // Set Ein as 1 in inputs, as for MSB, comparison hasn't started so Lin,Gin=0 and Ein=1
+        A = 1; B = 1; 
         #1 
         $display("\n");
-        A = 12; B = 18; Lin = 0; Ein = 1; Gin = 0;
+        A = 12; B = 18; 
         #1 
         $display("\n");
-        A = 18; B = 15; Lin = 0; Ein = 1; Gin = 0;
+        A = 18; B = 15; 
         #1
         $display("\n");
-        A = 0; B = 0; Lin = 0; Ein = 1; Gin = 0;
+        A = 0; B = 0; 
         #1
         $display("\n");
-        A = 64; B = 0; Lin = 0; Ein = 0; Gin = 1;
+        A = 64; B = 0;
         #1
         $display("\n");
-        A = 43; B = 94; Lin = 1; Ein = 0; Gin = 0;
+        A = 43; B = 94;
         #1
         $display("\n");
-        A = 255; B = 65; Lin = 0; Ein = 1; Gin = 0;
+        A = 255; B = 65;
         #1
         $display("\n");
-        A = 255; B = 255; Lin = 0; Ein = 1; Gin = 0;
+        A = 255; B = 255;
         #1
         $display("\n");
-        A = 5; B = 95; Lin = 0; Ein = 0; Gin = 1;
+        A = 5; B = 95;
         #1
         $display("\n");
-        A = 128; B = 95; Lin = 1; Ein = 0; Gin = 0;
+        A = 128; B = 95;
     end
 
     // Displaying the final output
