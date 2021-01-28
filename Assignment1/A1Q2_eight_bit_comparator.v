@@ -1,5 +1,3 @@
-`include "./A1Q2_one_bit_comparator.v"
-
 module eight_bit_comparator (x, y, lin, ein, gin, less, equal, greater);
 
    // Inputs

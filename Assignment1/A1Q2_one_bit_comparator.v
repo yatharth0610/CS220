@@ -16,8 +16,8 @@ module one_bit_comparator (a, b, lin, ein, gin, less, equal, greater);
    wire greater;
 
    // Combinational logic
-   assign less = lin|~gin&~a&b;
+   assign less = lin|ein&~a&b;
    assign equal = ein&~(a^b);
-   assign greater = gin|~lin&a&~b; 
+   assign greater = gin|ein&a&~b; 
 
 endmodule

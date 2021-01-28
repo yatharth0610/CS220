@@ -1,5 +1,3 @@
-`include "./A1Q2_eight_bit_comparator.v"
-
 module eight_bit_comparator_top;
 
     // Inputs
@@ -19,30 +17,40 @@ module eight_bit_comparator_top;
 
     // Initialising the inputs
     initial begin
-        A = 1; B = 1; Lin = 0; Ein = 1; Gin = 0;
+        Lin = 0; Ein = 1; Gin = 0; // Set Ein as 1 in inputs
+        A = 1; B = 1; 
         #1 
-        A = 4; B = 2; Lin = 0; Ein = 1; Gin = 0;
+        $display("\n");
+        A = 12; B = 18; 
         #1 
-        A = 32; B = 6; Lin = 0; Ein = 1; Gin = 0;
+        $display("\n");
+        A = 18; B = 15; 
         #1
-        A = 26; B = 5; Lin = 1; Ein = 0; Gin = 0;
+        $display("\n");
+        A = 0; B = 0; 
         #1
-        A = 64; B = 64; Lin = 0; Ein = 1; Gin = 0;
+        $display("\n");
+        A = 64; B = 0;
         #1
-        A = 43; B = 4; Lin = 1; Ein = 0; Gin = 0;
+        $display("\n");
+        A = 43; B = 94;
         #1
-        A = 65; B = 43; Lin = 0; Ein = 1; Gin = 0;
+        $display("\n");
+        A = 255; B = 65;
         #1
-        A = 128; B = 128; Lin = 0; Ein = 1; Gin = 0;
+        $display("\n");
+        A = 255; B = 255;
         #1
-        A = 5; B = 95; Lin = 0; Ein = 0; Gin = 1;
+        $display("\n");
+        A = 5; B = 95;
         #1
-        A = 128; B = 95; Lin = 0; Ein = 0; Gin = 1;
+        $display("\n");
+        A = 128; B = 95;
     end
 
     // Displaying the final output
-    always @ (A or B or Lin or Ein or Gin) begin
-        $monitor("<%d>: Input_A = %b, Input_B = %b, Input_Lin = %b, Input_Ein = %b, Input_Gin = %b, Less = %b, Equal = %b, Greater = %b",$time,A,B,Lin,Ein,Gin,Less,Equal,Greater);
+    always @ (A or B or Less or Equal or Greater) begin
+        $display("<%d>: Input_A = %b, Input_B = %b, Less = %b, Equal = %b, Greater = %b",$time,A,B,Less,Equal,Greater);
     end
 
 endmodule
