@@ -50,7 +50,7 @@ module eight_bit_comparator_top;
 
     // Displaying the final output
     always @ (A or B or Less or Equal or Greater) begin
-        $display("<%d>: Input_A = %b, Input_B = %b, Less = %b, Equal = %b, Greater = %b",$time,A,B,Less,Equal,Greater);
+        $display("<%d>: Input_A = %b, Input_B = %b, Lin = %b, Ein = %b, Gin = %b, Less = %b, Equal = %b, Greater = %b",$time,A,B,Lin,Ein,Gin,Less,Equal,Greater);
     end
 
 endmodule
