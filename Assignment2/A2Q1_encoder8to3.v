@@ -1,9 +1,13 @@
 module encoder_8to3 (x, y);
 
     input [7:0] x;
-    output reg [2:0] y;
+    output wire [2:0] y;
 
-    always @(x) begin
+    assign y[0] = x[1]||x[3]||x[5]||x[7];
+    assign y[1] = x[2]||x[3]||x[6]||x[7];
+    assign y[2] = x[4]||x[5]||x[6]||x[7];
+    
+    /*always @(x) begin
 
         case(x)
 
@@ -17,6 +21,7 @@ module encoder_8to3 (x, y);
             8'b10000000: y = 3'b111;
             default: $display("Invalid Signal");
 
-        endcase
-    end
+        endcase 
+    end*/
+
 endmodule
