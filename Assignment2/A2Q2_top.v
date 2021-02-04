@@ -1,26 +1,18 @@
 module priority_encoder_top;
 
+    // Inputs
     reg [7:0] in;
-    wire [2:0] out;
-    reg clk;
 
+    // Outputs
+    wire [2:0] out;
+
+    // Instantiation of module
     priority_encoder8to3 PENC(in, out);
 
+    // Initialisation and testing of the circuit
     initial begin
-    //clk = 0;
-    //in = 1;
     $monitor("<%d>: Input = %b, Output = %b \n", $time, in, out);
-    //#2150 $finish;
     end
-
-    /*always begin
-        #4
-        clk = ~clk;
-    end
-    
-    always @(posedge clk ) begin
-        in <= #2 in + 1;
-    end */
 
     initial begin
         in = 8'b00000101;
