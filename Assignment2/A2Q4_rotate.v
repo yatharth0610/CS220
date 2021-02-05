@@ -1,4 +1,4 @@
-module left_rotate(clk, q);
+module M(clk, q);
 
     // Inputs 
     input clk;

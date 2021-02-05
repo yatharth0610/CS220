@@ -10,7 +10,7 @@ module blink_top;
     reg [20:0] count = 0;
 
     // Instantiation of module
-    blink BLNK(clk, out);
+    M BLINK(clk, out);
 
     // Initialisation and testing of module
     always @(out) begin

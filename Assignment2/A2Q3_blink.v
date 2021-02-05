@@ -1,4 +1,4 @@
-module blink(clk, q);
+module M(clk, q);
 
     // Inputs
     input clk;

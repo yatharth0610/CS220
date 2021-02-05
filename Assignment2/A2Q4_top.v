@@ -10,7 +10,7 @@ module left_rotate_top;
     reg [20:0] count = 0;
 
     // Instantiation of module
-    left_rotate rotator(clk, out);
+    M rotator(clk, out);
 
     // Initialisation and testing of module
     always @(out) begin
