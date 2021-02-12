@@ -14,8 +14,9 @@ module blink_top;
     fsm FSM(clk, xin, xout);
 
     // Initialisation and testing of module
-    always @(posedge clk) begin
-        #1 $display ("<%d>: Output = %b \n", $time, xout);
+    always @(negedge clk) begin
+        if ($time != 0) 
+            $display ("<%d>: Output = %b \n", $time, xout);
     end
 
     // Setup clock with period equal to ten time units and 50% duty cycle, for 10 cycles
