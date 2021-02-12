@@ -10,7 +10,7 @@ module read(clk, row, input_valid, content, output_valid);
     output reg output_valid;
 
     // Declaration of memory 
-    reg [15:0] mem[31:0];
+    reg [31:0] mem[15:0];
 
     // Temp variables
     reg [3:0] open_row = 4'bxxxx;
