@@ -9,14 +9,17 @@ module blink_top;
 
     // Temporary counter to store the number of clock cycles
     reg [3:0] count = 0;
+    reg start = 1;
 
     // Instantiation of module
     fsm FSM(clk, xin, xout);
 
     // Initialisation and testing of module
     always @(negedge clk) begin
-        if ($time != 0) 
+        if (start != 1) 
             $display ("<%d>: Output = %b \n", $time, xout);
+        else 
+            start = 0;
     end
 
     // Setup clock with period equal to ten time units and 50% duty cycle, for 10 cycles
