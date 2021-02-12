@@ -13,10 +13,12 @@ module read_top;
     reg [4:0] count1 = 0;
     reg [2:0] count2 = 0;
     reg start = 1;
+    reg [2:0] done_times = 0; 
 
     // Instantiation of module
     read DRAM(clk, row, input_valid, content, output_valid);
 
+    // Setting up clk signal
     initial begin
         forever begin
             if (count1 == 30) begin 
@@ -33,6 +35,7 @@ module read_top;
         end
     end
 
+    // Initialising the inputs and testing
     initial begin
         forever begin
                 #3
@@ -42,9 +45,15 @@ module read_top;
                     row = 2;
                     start = 0;
                 end
-                else if (count2 == 3) begin
+                else if (count2 == 3 && done_times != 5) begin
                     input_valid = 1;
-                    row = 3;
+                    row = 9;
+                    count2 = 0;
+                    done_times = done_times + 1;
+                end
+                else if (count2 == 3) begin 
+                    input_valid = 1;
+                    row = 15;
                     count2 = 0;
                 end
                 count2 = count2 + 1;

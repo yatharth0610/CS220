@@ -1,17 +1,23 @@
 module read(clk, row, input_valid, content, output_valid);
 
+    // Inputs
     input clk;
     input [3:0] row;
     input input_valid;
 
+    // Outputs
     output reg [31:0] content;
     output reg output_valid;
 
+    // Declaration of memory 
     reg [15:0] mem[31:0];
+
+    // Temp variables
     reg [3:0] open_row = 4'bxxxx;
     reg next = 0;
     reg [1:0] count_next = 0;
 
+    // Initialising of memory
     initial begin
         mem[0] = 0;
         mem[1] = 1;
@@ -31,6 +37,7 @@ module read(clk, row, input_valid, content, output_valid);
         mem[15] = 15;
     end
 
+    // Logic for giving results in next and next-to-next cycles
     always @ (posedge clk) begin
         if (next == 1) begin
             content <= mem[open_row];
@@ -45,6 +52,7 @@ module read(clk, row, input_valid, content, output_valid);
         end      
     end
 
+    // Logic for giving the output in current cycle and setting up the output for next and next to next cycles
     always @(posedge clk) begin        
         if (count_next == 1) begin 
             count_next <= count_next + 1;
