@@ -1,14 +1,18 @@
 module find_coordinates_top;
     
+    // Inputs
     reg [1:0] dir;
     reg [1:0] steps;
     reg clk;
 
+    // Outputs
     wire [4:0] x_coord;
     wire [4:0] y_coord;
 
+    // Temporary counter to store number of cycles
     reg [3:0] count = 0;
 
+    // Instantiationing module
     find_coordinates FIND(clk, dir, steps, x_coord, y_coord);
 
     // Setup clock with period equal to ten time units and 50% duty cycle, for 10 cycles

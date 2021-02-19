@@ -15,7 +15,6 @@ module eight_bit_adder_subtractor_top;
 
     // Displaying the output
     always @(A or B or opcode or sum or carry or overflow) begin
-        // $display("<%d>: Input_A = %d, Input_B = %d, Input_opcode = %b, Sum = %d, Carry = %b, Overflow = %b",$time,$signed(A),$signed(B),opcode,$signed(sum),carry,overflow);
         $display("<%d>: Input_A = %b, Input_B = %b, Input_opcode = %b, Sum = %b, Carry = %b, Overflow = %b",$time,A,B,opcode,sum,carry,overflow);
     end
         

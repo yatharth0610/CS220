@@ -1,12 +1,15 @@
 module find_coordinates (clk, dir, steps, x, y);
 
+    // Inputs 
     input clk;
     input [1:0] dir;
     input [1:0] steps;
 
+    // Outputs
     output reg [4:0] x;
     output reg [4:0] y;
 
+    // Intermediate registers to store the changes in state
     reg [4:0] cur_state_x = 0;
     reg [4:0] cur_state_y = 0;
     reg [4:0] provided_cord;
@@ -14,8 +17,10 @@ module find_coordinates (clk, dir, steps, x, y);
     wire [4:0] new_cord;
     wire carry_out;
 
+    // Instantiating the full-adder-subtractor module
     five_bit_fulladder ADD(provided_cord, {{3{1'b0}}, steps[1:0]}, provided_op, new_cord, carry_out);
 
+    // Calculating new position in posedge
     always @(posedge clk) begin
         if (dir == 2'b00) begin
             provided_cord = cur_state_x;
@@ -38,6 +43,7 @@ module find_coordinates (clk, dir, steps, x, y);
         end
     end
 
+    // Checking for out of bound values and updating the new position in negedge
     always @(negedge clk) begin
         if (dir == 2'b00) begin
             x = new_cord;
