@@ -38,9 +38,6 @@ module find_coordinates (clk, dir, steps, x, y);
             provided_cord = cur_state_y;
             provided_op = 1;
         end
-        else begin
-            $display ("Error: Invalid Input!");
-        end
     end
 
     // Checking for out of bound values and updating the new position in negedge
@@ -80,9 +77,6 @@ module find_coordinates (clk, dir, steps, x, y);
                 y = 0;
                 cur_state_y = 0;
             end
-        end
-        else begin
-            $display ("Error: Invalid Input!");
         end
     end
 
