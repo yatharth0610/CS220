@@ -1,19 +1,19 @@
 module fsm_top;
 
     reg clk = 0;
-    reg [3:0] curr_state = 0;
-    wire [3:0] next_state;
+    reg [3:0] curr = 0;
+    wire [3:0] next;
     reg [3:0] count = 0;
     reg [1:0] y;
 
-    fsm FSM(clk, curr_state, y, next_state);
+    fsm FSM(clk, curr, y, next);
     
     always @(posedge clk ) begin
-        $display("<%d>: Current State = %d",$time,curr_state);
+        $display("<%d>: Current State = %d",$time,curr);
     end
 
     always @(negedge clk ) begin
-        curr_state <= next_state;
+        curr <= next;
     end
     
     // Setup clock with period equal to ten time units and 50% duty cycle, for 10 cycles
