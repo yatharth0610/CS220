@@ -72,13 +72,9 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, o
                 count1 = 0; 
             end
             else begin
-                //done1 = 0;
                 count1 = count1 + 1;
             end
         end
-        // else begin
-        //     done1 = 0;
-        // end
     end
 
     always @(posedge clk) begin
@@ -89,13 +85,9 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, o
                 count2 = 0; 
             end
             else begin
-                //done2 = 0;
                 count2 = count2 + 1;
             end
         end
-        // else begin
-        //     done2 = 0;
-        // end
     end
 
     always @(posedge clk) begin
@@ -106,13 +98,9 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, o
                 count3 = 0; 
             end
             else begin
-                //done3 = 0;
                 count3 = count3 + 1;
             end
         end
-        // else begin
-        //     done3 = 0;
-        // end
     end
 
     assign output_valid = done1 || done2 || done3;

@@ -31,9 +31,7 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
     reg_file mem(clk, read_reg1, read_reg2, write_reg, data, valid_bits, out1, out2, output_valid);
 
     always @(negedge clk) begin
-        $display("output_valid: %b", output_valid);
         if (output_valid == 1) begin
-            // done = 1;
             if (op == 3'b000) begin
                 valid_bits = 3'b000;
                 done = 1;
@@ -62,7 +60,7 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
             else if (op == 3'b101) begin
                 read_data_1 = out1;
                 read_data_2 = out2;
-                if (count < 19) begin
+                if (count < 16) begin
                     count = count + 1;
                 end
                 else begin
@@ -70,14 +68,14 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
                     count = 0;
                     done = 1;
                 end
-                if (count == 17) begin
+                if (count == 15) begin
                     math_temp = read_data_1 + read_data_2;
                 end
             end
             else if (op == 3'b110) begin
                 read_data_1 = out1;
                 read_data_2 = out2;
-                if (count < 19) begin
+                if (count < 16) begin
                     count = count + 1;
                 end
                 else begin
@@ -85,57 +83,55 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
                     count = 0;
                     done = 1;
                 end
-                if (count == 17) begin
+                if (count == 15) begin
                     math_temp = read_data_1 - read_data_2;
                 end
             end
             else if (op == 3'b111) begin
-                //$display("<%d>, Val1 <%d>, <%d>", $time, count, done);
                 read_data_1 = out1;
-                //$display("<%d>, Val1 <%d>, <%d>", $time, read_data_1, out1);
-                if (count < 20) begin
+                if (count < 16) begin
                     count = count + 1;
-                    //$display("lol");
                 end
                 else begin
                     arith_out = math_temp;
                     count = 0;
                     done = 1;
-                    //$display("<%d>, l", $time);
                 end
-                if (count == 17) begin
+                if (count == 15) begin
                     math_temp = read_data_1 << read2;
-                    //$display("read_data_1 : %b, read2 : %b", read_data_1, read2);
                 end
             end
         end
     end
 
     always @(posedge clk) begin 
-        // $display("Hi, op : %b, input_valid: %b", op, input_valid);
         if (input_valid == 1) begin
-            done = 0;
             if (op == 3'b000) begin
+                done = 0;
                 valid_bits = 3'b001;
                 write_reg = write;
                 data = write_data;
             end
             else if (op == 3'b001) begin
+                done = 0;
                 valid_bits = 3'b100;
                 read_reg1 = read1;
             end 
             else if (op == 3'b010) begin
+                done = 0;
                 valid_bits = 3'b110;
                 read_reg1 = read1;
                 read_reg2 = read2;
             end 
             else if (op == 3'b011) begin
+                done = 0;
                 valid_bits = 3'b101;
                 read_reg1 = read1;
                 write_reg = write;
                 data = write_data;
             end 
             else if (op == 3'b100) begin
+                done = 0;
                 valid_bits = 3'b111;
                 read_reg1 = read1;
                 read_reg2 = read2;
@@ -146,7 +142,8 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
                 valid_bits = 3'b110;
                 read_reg1 = read1;
                 read_reg2 = read2;
-                if(count > 17) begin
+                if(count == 16) begin
+                    done = 0;
                     valid_bits = 3'b001;
                     write_reg = write;
                     data = math_temp;
@@ -156,18 +153,18 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
                 valid_bits = 3'b110;
                 read_reg1 = read1;
                 read_reg2 = read2;
-                if(count > 17) begin
+                if(count == 16) begin
+                    done = 0;
                     valid_bits = 3'b001;
                     write_reg = write;
                     data = math_temp;
                 end
             end
             else if (op == 3'b111) begin
-                //$display("Val <%d>", count);
                 valid_bits = 3'b100;
                 read_reg1 = read1;
-                if(count > 17) begin
-                    //$display("Hi");
+                if(count == 16) begin
+                    done = 0;
                     valid_bits = 3'b001;
                     write_reg = write;
                     data = math_temp;

@@ -123,21 +123,18 @@ module top;
                 read1 = inst[counter][30:26];
                 read2 = inst[counter][25:21];
                 write = inst[counter][20:16];
-                // $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
             end
             else if (inst[counter][33:31] == 3'b110) begin
                 op = 3'b110;
                 read1 = inst[counter][30:26];
                 read2 = inst[counter][25:21];
                 write = inst[counter][20:16];
-                // $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
             end
             else if (inst[counter][33:31] == 3'b111) begin
                 op = 3'b111;
                 read1 = inst[counter][30:26];
                 read2 = inst[counter][25:21];
                 write = inst[counter][20:16];
-                // $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
             end
         end
     end
