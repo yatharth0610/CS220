@@ -33,7 +33,6 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
     always @(negedge clk) begin
         if (output_valid == 1) begin
             // done = 1;
-            valid_bits = 3'b000;
             if (op == 3'b000) begin
                 done = 1;
             end
@@ -86,17 +85,17 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
                 end
             end
             else if (op == 3'b111) begin
-                $display("<%d>, Val1 <%d>, <%d>", $time, count, done);
+                //$display("<%d>, Val1 <%d>, <%d>", $time, count, done);
                 read_data_1 = out1;
-                $display("<%d>, Val1 <%d>, <%d>", $time, read_data_1);
+                //$display("<%d>, Val1 <%d>, <%d>", $time, read_data_1, out1);
                 if (count < 20) begin
                     count = count + 1;
-                    $display("lol");
+                    //$display("lol");
                 end
                 else begin
                     arith_out = math_temp;
                     count = 0;
-                    $display("<%d>, l", $time);
+                    //$display("<%d>, l", $time);
                     done = 1;
                 end
                 if (count == 17) begin
@@ -111,6 +110,7 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
     //             end
 
     always @(posedge clk) begin 
+        //$display("Hi, op : %b, input_valid: %b", op, input_valid);
         if (input_valid == 1) begin
             done = 0;
             if (op == 3'b000) begin
@@ -141,19 +141,21 @@ module processor(clk, input_valid, op, read1, read2, write, write_data, read_dat
                 data = write_data;
             end  
             else if (op == 3'b101) begin
-                valid_bits = 3'b111;
+                valid_bits = 3'b110;
                 read_reg1 = read1;
                 read_reg2 = read2;
                 if(count > 17) begin
+                    valid_bits = 3'b001;
                     write_reg = write;
                     data = math_temp;
                 end
             end
             else if (op == 3'b110) begin
-                valid_bits = 3'b111;
+                valid_bits = 3'b110;
                 read_reg1 = read1;
                 read_reg2 = read2;
                 if(count > 17) begin
+                    valid_bits = 3'b001;
                     write_reg = write;
                     data = math_temp;
                 end

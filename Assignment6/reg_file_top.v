@@ -34,11 +34,6 @@ module top;
     end
 
     initial begin
-        #100 
-        $finish;
-    end
-
-    initial begin
         inst[0] = 34'b0000000000000000010000000000010001;
         inst[1] = 34'b0110000100000000101111111111110111;
         inst[2] = 34'b1000000100010000110000000001000001;
@@ -53,6 +48,11 @@ module top;
         input_valid = 1;
         write = 5'b00001;
         write_data = 16'b0000000000010001;
+    end
+
+    initial begin
+        #1000
+        $finish;
     end
 
     always @(posedge done) begin
