@@ -50,11 +50,6 @@ module top;
         write_data = 16'b0000000000010001;
     end
 
-    initial begin
-        #1000
-        $finish;
-    end
-
     always @(posedge done) begin
         if (inst[counter][33:31] == 3'b000) begin
         end
@@ -91,7 +86,7 @@ module top;
             $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
         end
         counter = counter + 1;
-        if (counter == 8) begin 
+        if (counter == 9) begin 
             $finish;
         end
         else begin
@@ -148,7 +143,7 @@ module top;
     end
 
     always @(negedge done) begin
-        input_valid = 0;
+         input_valid = 0;
     end
 
 endmodule
