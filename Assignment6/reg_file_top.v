@@ -55,35 +55,35 @@ module top;
         end
         else if (inst[counter][33:31] == 3'b001) begin
             read1 = inst[counter][30:26];
-            $display ("<%d>: Instruction: <%b>, Read register : %d, Read Data: %d", $time, inst[counter][33:31], read1, read_data_1);
+            $display ("<%d>: Instruction: %b, Read register : %d, Read Data: %d", $time, inst[counter][33:31], read1, read_data_1);
         end 
         else if (inst[counter][33:31] == 3'b010) begin
             read1 = inst[counter][30:26];
             read2 = inst[counter][25:21];
-            $display ("<%d>: Instruction: <%b>, Read register 1: %d, Read Register 2: %d, Read Data 1: %d, Read Data 2: %d", $time, inst[counter][33:31], read1, read2, read_data_1, read_data_2);
+            $display ("<%d>: Instruction: %b, Read register 1: %d, Read Register 2: %d, Read Data 1: %d, Read Data 2: %d", $time, inst[counter][33:31], read1, read2, read_data_1, read_data_2);
         end 
         else if (inst[counter][33:31] == 3'b011) begin
             read1 = inst[counter][30:26];
-            $display ("<%d>: Instruction: <%b>, Read register : %d, Read Data: %d", $time, inst[counter][33:31], read1, read_data_1);
+            $display ("<%d>: Instruction: %b, Read register : %d, Read Data: %d", $time, inst[counter][33:31], read1, read_data_1);
         end 
         else if (inst[counter][33:31] == 3'b100) begin
             read1 = inst[counter][30:26];
             read2 = inst[counter][25:21];
-            $display ("<%d>: Instruction: <%b>, Read register 1: %d, Read Register 2: %d, Read Data 1: %d, Read Data 2: %d", $time, inst[counter][33:31], read1, read2, read_data_1, read_data_2);
+            $display ("<%d>: Instruction: %b, Read register 1: %d, Read Register 2: %d, Read Data 1: %d, Read Data 2: %d", $time, inst[counter][33:31], read1, read2, read_data_1, read_data_2);
         end
         else if (inst[counter][33:31] == 3'b101) begin
             read1 = inst[counter][30:26];
             read2 = inst[counter][25:21];
-            $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
+            $display ("<%d>: Instruction: %b, Write Register: %d, Value written: %d", $time, inst[counter][33:31], write, arith_out);
         end
         else if (inst[counter][33:31] == 3'b110) begin
             read1 = inst[counter][30:26];
             read2 = inst[counter][25:21];
-            $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
+            $display ("<%d>: Instruction: %b, Write Register: %d, Value written: %d", $time, inst[counter][33:31], write, arith_out);
         end
         else if (inst[counter][33:31] == 3'b111) begin
             read1 = inst[counter][30:26];
-            $display ("<%d>: Instruction: <%b>, Write Register: <%d>, Value written: <%d>", $time, inst[counter][33:31], write, arith_out);
+            $display ("<%d>: Instruction: %b, Write Register: %d, Value written: %d", $time, inst[counter][33:31], write, arith_out);
         end
         counter = counter + 1;
         if (counter == 9) begin 
