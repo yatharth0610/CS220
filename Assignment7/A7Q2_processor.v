@@ -28,9 +28,8 @@ module processor;
     reg [2:0] valid_bits = 3'b000;
     wire [7:0] out1;
     wire [7:0] out2;
-    wire output_valid;
 
-    reg_file REG_FILE(clk, read_reg1, read_reg2, write_reg, data, valid_bits, out1, out2, output_valid);
+    reg_file REG_FILE(clk, read_reg1, read_reg2, write_reg, data, valid_bits, out1, out2);
 
     // Setting up clk signal
     initial begin

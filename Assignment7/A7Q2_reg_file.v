@@ -1,4 +1,4 @@
-module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, output_valid);
+module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2);
 
     // Inputs
     input clk;
@@ -11,7 +11,6 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, o
     // Outputs
     output reg [7:0] out1;
     output reg [7:0] out2;
-    output wire output_valid;
 
     // Declaration of memory 
     reg [7:0] mem[31:0];
@@ -81,7 +80,5 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, o
             done3 = 1;
         end
     end
-
-    assign output_valid = done1 || done2 || done3;
 
 endmodule
