@@ -4,8 +4,8 @@ module processor;
     reg [31:0] mem[6:0];
 
     // Counters 
-    reg [2:0] pc = 0;
-    reg [2:0] MAX_PC = 7;
+    reg [3:0] pc = 0;
+    reg [3:0] MAX_PC = 8;
     reg [2:0] OUTPUT_REG = 3'b101;
     reg [2:0] state = 0;
     reg [31:0] cur_inst;
@@ -53,7 +53,6 @@ module processor;
     end
 
     always @(posedge clk) begin
-        // $display("pc %d state %d",pc, state);
         case(state)
             0:  begin
                 valid_bits = 3'b000;
@@ -72,7 +71,6 @@ module processor;
                     function_code = cur_inst[5:0];
                 end
                 else if (opcode != 6'b000010 && opcode != 6'b000011) begin
-                    // $display("Hi");
                     valid_bits = 3'b100;
                     read_reg1 = cur_inst[25:21];
                     write_reg = cur_inst[20:16];
@@ -90,7 +88,6 @@ module processor;
                     read_value_1 = out1;
                 end
                 state = 3;
-                // $display("%b %d %d %d", opcode, read_value_1, read_value_2, output_valid);
             end
 
             3:  begin
@@ -109,7 +106,6 @@ module processor;
                 else begin
                     inst_valid = 0;
                 end
-                $display("%d", to_write);
                 state = 4;
             end
 
@@ -118,20 +114,25 @@ module processor;
                     data = to_write;
                 end
                 if (pc < MAX_PC) begin
-                    state = 0;
+                    if (pc < MAX_PC - 1) begin 
+                        state = 0;
+                    end
+                    else begin
+                        pc = pc + 1;
+                    end
                     data = to_write;
                     valid_bits = 3'b001;
-                    // $display ("write_data = %b", data);
                 end
                 else begin
                     state = 5;
+                    data = to_write;
                     read_reg1 = OUTPUT_REG;
                     valid_bits = 3'b101;
                 end
             end
 
             5:  begin
-                $display("OUTPUT_REG: %d", out1);
+                $display("OUTPUT_REG: %d, output_reg: %d", out1, read_reg1);
                 $finish;
             end
         endcase
