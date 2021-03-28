@@ -9,6 +9,7 @@ module processor;
     reg [2:0] OUTPUT_REG = 3'b101;
     reg [2:0] state = 0;
     reg [31:0] cur_inst;
+    reg [1:0] counter = 0;
 
     // Variables for module
     reg [5:0] opcode;
@@ -20,7 +21,7 @@ module processor;
 
     reg [7:0] read_value_1;
     reg [7:0] read_value_2;
-    reg [7:0] to_write;
+    reg signed [7:0] to_write;
     reg inst_valid = 0;
 
     reg [7:0] data;
@@ -53,7 +54,6 @@ module processor;
     end
 
     always @(posedge clk) begin
-        $display("pc %d state %d",pc, state);
         case(state)
             0:  begin
                 valid_bits = 3'b000;
@@ -89,7 +89,6 @@ module processor;
                     read_value_1 = out1;
                 end
                 state = 3;
-                // $display("%b %d %d %d", opcode, read_value_1, read_value_2, output_valid);
             end
 
             3:  begin
@@ -108,7 +107,6 @@ module processor;
                 else begin
                     inst_valid = 0;
                 end
-                $display("%d", to_write);
                 state = 4;
             end
 
@@ -118,17 +116,25 @@ module processor;
                 end
                 if (pc < MAX_PC) begin
                     state = 0;
+                    data = to_write;
                     valid_bits = 3'b001;
                 end
                 else begin
-                    state = 5;
-                    read_reg1 = OUTPUT_REG;
-                    valid_bits = 3'b101;
+                    if (counter == 0) begin
+                        data = to_write;
+                        valid_bits = 3'b001;
+                        counter = counter + 1;
+                    end
+                    else if (counter == 1) begin
+                        read_reg1 = OUTPUT_REG;
+                        valid_bits = 3'b100;
+                        state = 5;
+                    end
                 end
             end
 
             5:  begin
-                $display("OUTPUT_REG: %d", out1);
+                $display("OUTPUT_REG: %d, output_reg: %d", out1, read_reg1);
                 $finish;
             end
         endcase

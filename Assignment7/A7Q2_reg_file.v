@@ -61,23 +61,21 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2, o
         done3 = 0;
     end
 
-    always @(posedge clk) begin
-        $display("%b %b %b", read1, read2, write);
+    always @(negedge clk) begin
         if (input_valid[2] == 1) begin
             out1 = mem[read1];
             done1 = 1;
         end
-        // $display("%d", done1);
     end
 
-    always @(posedge clk) begin
+    always @(negedge clk) begin
         if (input_valid[1] == 1) begin
             out2 = mem[read2];
             done2 = 1;
         end
     end
 
-    always @(posedge clk) begin
+    always @(negedge clk) begin
         if (input_valid[0] == 1) begin
             mem[write] = write_data;
             done3 = 1;
