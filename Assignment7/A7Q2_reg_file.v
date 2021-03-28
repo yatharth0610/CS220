@@ -14,9 +14,6 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2);
 
     // Declaration of memory 
     reg [7:0] mem[31:0];
-    reg done1 = 0;
-    reg done2 = 0;
-    reg done3 = 0;
 
     // Initialising of memory
     initial begin
@@ -54,30 +51,21 @@ module reg_file(clk, read1, read2, write, write_data, input_valid, out1, out2);
         mem[31] = 0;
     end
 
-    always @(read1 or read2 or write or write_data or input_valid) begin
-        done1 = 0;
-        done2 = 0;
-        done3 = 0;
-    end
-
     always @(negedge clk) begin
         if (input_valid[2] == 1) begin
             out1 = mem[read1];
-            done1 = 1;
         end
     end
 
     always @(negedge clk) begin
         if (input_valid[1] == 1) begin
             out2 = mem[read2];
-            done2 = 1;
         end
     end
 
     always @(negedge clk) begin
         if (input_valid[0] == 1) begin
             mem[write] = write_data;
-            done3 = 1;
         end
     end
 
