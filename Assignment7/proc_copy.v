@@ -20,7 +20,7 @@ module processor;
 
     reg [7:0] read_value_1;
     reg [7:0] read_value_2;
-    reg [7:0] to_write;
+    reg signed [7:0] to_write;
     reg inst_valid = 0;
 
     reg [7:0] data;
@@ -53,7 +53,7 @@ module processor;
     end
 
     always @(posedge clk) begin
-        $display("pc %d state %d",pc, state);
+        // $display("pc %d state %d",pc, state);
         case(state)
             0:  begin
                 valid_bits = 3'b000;
@@ -72,6 +72,7 @@ module processor;
                     function_code = cur_inst[5:0];
                 end
                 else if (opcode != 6'b000010 && opcode != 6'b000011) begin
+                    // $display("Hi");
                     valid_bits = 3'b100;
                     read_reg1 = cur_inst[25:21];
                     write_reg = cur_inst[20:16];
@@ -118,7 +119,9 @@ module processor;
                 end
                 if (pc < MAX_PC) begin
                     state = 0;
+                    data = to_write;
                     valid_bits = 3'b001;
+                    // $display ("write_data = %b", data);
                 end
                 else begin
                     state = 5;
