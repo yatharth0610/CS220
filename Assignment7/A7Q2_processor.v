@@ -134,7 +134,7 @@ module processor;
             end
 
             5:  begin
-                $display("OUTPUT_REG: %d, output_reg: %d", out1, read_reg1);
+                $display("Value of OUTPUT_REG (reg %d): %d", read_reg1, out1);
                 $finish;
             end
         endcase
