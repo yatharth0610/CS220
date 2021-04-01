@@ -57,35 +57,12 @@ module processor;
         mem[8] = 32'b00000000101000110010100000100001; // addu  $5, $5, $3
         mem[9] = 32'b00000000101000100011000000101010; // slt   $6, $5, $2
         mem[10] = 32'b00010100110000001111111111111101; // bne   $6, $0, loop
-        
-        // mem[0] = 32'b00100100000000100000000000000000;
-        // mem[1] = 32'b00100100000000110000000000000000;
-        // mem[2] = 32'b00000000011000010010000000101010; // slt   $4, $3, $1
-        // mem[3] = 32'b00010000100000000000000000001000;
-        // mem[4] = 32'b00100100000001010000000000001010;
-        // mem[5] = 32'b00010000011001010000000000000110; // beq   $3, $5, exit
-        // mem[6] = 32'b10001100011001100000000000000000;
-        // mem[7] = 32'b00000000010001100001000000100001; // addu  $2, $2, $6
-        // mem[8] = 32'b00100100011000110000000000000001;
-        // mem[9] = 32'b00000000011000010010000000101010;
-        // mem[10] = 32'b00010100100000001111111111111011; // bne   $4, $0, loop
-        // mem[11] = 32'b00000011111000000000000000001000;
-        // mem[12] = 32'b10001100000000010000000000001010;
-        // mem[13] = 32'b00001100000000000000000000000000;
     end
 
     initial begin 
         dram[0] = 8'b11101100;
         dram[1] = 8'b00001010;
         dram[2] = 8'b00000010;
-        // dram[3] = 8'b00000001;
-        // dram[4] = 8'b00000001;
-        // dram[5] = 8'b00000001;
-        // dram[6] = 8'b00000001;
-        // dram[7] = 8'b00000001;
-        // dram[8] = 8'b00000001;
-        // dram[9] = 8'b00000001;
-        // dram[10] = 8'b00001001;
     end
 
     always @(posedge clk) begin
@@ -156,14 +133,11 @@ module processor;
                 if (opcode == 6'b000000 && function_code == 6'b101010) begin
                     inst_valid = 1;
                     pc = pc + 1;
-                    $display("comp vals %d %d", $signed(read_value_1), $signed(read_value_2));
                     to_write = ($signed(read_value_1) < $signed(read_value_2)) ? 1 : 0;
                 end
                 if (opcode == 6'b000100) begin
                     valid_bits = 3'b000;
                     inst_valid = 1;
-                    $display("immediate: %d, read regs %d %d", immediate, read_reg1, read_reg2);
-                    $display("read vals %d %d", read_value_1, read_value_2);
                     if (read_value_1 == read_value_2) begin
                         pc = pc + immediate;
                     end
@@ -175,7 +149,6 @@ module processor;
                     valid_bits = 3'b000;
                     inst_valid = 1;
                     if (read_value_1 != read_value_2) begin
-                        $display("immediate: %d, read regs %d %d", immediate, read_reg1, read_reg2);
                         pc = pc + immediate;
                     end
                     else begin
@@ -200,7 +173,6 @@ module processor;
                     inst_valid = 0;
                 end
                 state = 4;
-                $display("pc %d", pc);
             end
 
             4: begin
@@ -212,7 +184,6 @@ module processor;
             end
 
             5:  begin
-                //$display ("pc: %d, to_write = %d, write_reg = %d", pc, to_write, write_reg);
                 if (inst_valid != 0 && write_reg != 5'b00000) begin
                     data = to_write;
                 end
