@@ -45,6 +45,7 @@ module processor;
         end
     end
 
+    // Encoding the instructions 
     initial begin
         mem[0] = 32'b00100100000000100000000000000000;
         mem[1] = 32'b00100100000000110000000000000000;
@@ -62,18 +63,19 @@ module processor;
         mem[13] = 32'b00001100000000000000000000000000;
     end
 
+    // Setting up the value of elememts of array and value of n
     initial begin 
         dram[0] = 8'b00000001;
         dram[1] = 8'b00000010;
         dram[2] = 8'b00000010;
-        dram[3] = 8'b00000001;
+        dram[3] = 8'b00000001; 
         dram[4] = 8'b00000001;
         dram[5] = 8'b00000001;
         dram[6] = 8'b00000001;
         dram[7] = 8'b00000001;
         dram[8] = 8'b00000001;
         dram[9] = 8'b00000001;
-        dram[10] = 8'b00001001;
+        dram[10] = 8'b00001000; // n = 8
     end
 
     always @(posedge clk) begin
@@ -93,6 +95,12 @@ module processor;
                     write_reg = cur_inst[15:11];
                     function_code = cur_inst[5:0];
                 end
+                else if (opcode == 6'b000100 || opcode == 6'b000101) begin
+                    valid_bits = 3'b110;
+                    read_reg1 = cur_inst[25:21];
+                    read_reg2 = cur_inst[20:16];
+                    immediate = cur_inst[7:0];
+                end
                 else if (opcode != 6'b000010 && opcode != 6'b000011) begin
                     valid_bits = 3'b100;
                     read_reg1 = cur_inst[25:21];
@@ -107,7 +115,7 @@ module processor;
             end
 
             2:  begin
-                if(opcode == 6'b000000) begin
+                if(opcode == 6'b000000 || opcode == 6'b000100 || opcode == 6'b000101) begin
                     read_value_1 = out1;
                     read_value_2 = out2;
                 end
@@ -138,7 +146,7 @@ module processor;
                 if (opcode == 6'b000000 && function_code == 6'b101010) begin
                     inst_valid = 1;
                     pc = pc + 1;
-                    to_write = (read_value_1 < read_value_2) ? 1 : 0;
+                    to_write = ($signed(read_value_1) < $signed(read_value_2)) ? 1 : 0;
                 end
                 if (opcode == 6'b000100) begin
                     valid_bits = 3'b000;
@@ -154,7 +162,6 @@ module processor;
                     valid_bits = 3'b000;
                     inst_valid = 1;
                     if (read_value_1 != read_value_2) begin
-                        //$display("immediate: %d", immediate);
                         pc = pc + immediate;
                     end
                     else begin
@@ -190,7 +197,6 @@ module processor;
             end
 
             5:  begin
-                //$display ("pc: %d, to_write = %d, write_reg = %d", pc, to_write, write_reg);
                 if (inst_valid != 0 && write_reg != 5'b00000) begin
                     data = to_write;
                 end
@@ -218,7 +224,7 @@ module processor;
             end
 
             6:  begin
-                $display("Value of OUTPUT_REG (reg %d): %d", read_reg1, out1);
+                $display("Value of OUTPUT_REG (reg %d): %d", read_reg1, $signed(out1));
                 $finish;
             end
         endcase
