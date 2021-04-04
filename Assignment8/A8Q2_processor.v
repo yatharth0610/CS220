@@ -31,7 +31,7 @@ module processor;
     wire [7:0] out1;
     wire [7:0] out2;
 
-    reg [7:0] dram[2:0];
+    reg signed [7:0] dram[2:0];
     reg_file REG_FILE(clk, read_reg1, read_reg2, write_reg, data, valid_bits, out1, out2);
 
     // Setting up clk signal
@@ -57,8 +57,10 @@ module processor;
         mem[8] = 32'b00000000101000110010100000100001; // addu  $5, $5, $3
         mem[9] = 32'b00000000101000100011000000101010; // slt   $6, $5, $2
         mem[10] = 32'b00010100110000001111111111111101; // bne   $6, $0, loop
+        
     end
 
+    // Initialising variables in data memory
     initial begin 
         dram[0] = 8'b11101100;
         dram[1] = 8'b00001010;

@@ -31,7 +31,7 @@ module processor;
     wire [7:0] out1;
     wire [7:0] out2;
 
-    reg [7:0] dram[10:0];
+    reg signed [7:0] dram[10:0];
     reg_file REG_FILE(clk, read_reg1, read_reg2, write_reg, data, valid_bits, out1, out2);
 
     // Setting up clk signal
@@ -66,8 +66,8 @@ module processor;
     // Setting up the value of elememts of array and value of n
     initial begin 
         dram[0] = 8'b00000001;
-        dram[1] = 8'b00000010;
-        dram[2] = 8'b00000010;
+        dram[1] = 8'b10000000;
+        dram[2] = 8'b00000001;
         dram[3] = 8'b00000001; 
         dram[4] = 8'b00000001;
         dram[5] = 8'b00000001;
