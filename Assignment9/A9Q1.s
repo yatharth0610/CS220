@@ -89,4 +89,4 @@
             add $v0, $t1, $v0
             lw $ra, 8($sp)
             addi $sp, $sp, 12
-            jr $ra ⏎  
+            jr $ra 
