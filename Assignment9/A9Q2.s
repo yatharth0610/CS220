@@ -3,6 +3,7 @@
         message2: .asciiz "Enter X line by line: "
         message3: .asciiz "Enter Y line by line: "
         message4: .asciiz "The Product of X and Y is: "
+        message5: .asciiz "No vectors to multiply "
         X: .space 60
         Y: .space 60
 
@@ -19,6 +20,9 @@
                 li $v0, 5
                 syscall
                 addi $t0 ,$v0, 0
+
+                # check if n == 0
+                beqz $t0, finish
                 
                 # load address of X and Y in $t1, $t2
                 la $t1, X 
@@ -102,6 +106,14 @@
                 mov.s $f12, $f0
 
                 li $v0, 2
+                syscall
+
+                jr $ra
+
+        finish: 
+                # message for printing n == 0
+                li $v0, 4
+                la $a0, message5
                 syscall
 
                 jr $ra
