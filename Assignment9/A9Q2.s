@@ -20,7 +20,7 @@
                 syscall
                 addi $t0 ,$v0, 0
                 
-                # load address of X and Y in $t1, $s0
+                # load address of X and Y in $t1, $t2
                 la $t1, X 
                 la $t2, Y
 
