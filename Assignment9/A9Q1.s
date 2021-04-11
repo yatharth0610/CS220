@@ -19,23 +19,27 @@
             sw $v0, 0($sp)
 
             # Setting up counter for loop
-            li $s0, 1
+            li $s0, 0
 
         loop:
+            # Checking for breaking the loop
+            lw $v0, 0($sp)
+            ble $v0, $s0 exit
+            addi $s0, $s0, 1
+
             # Calling fib function in a loop
             xor $a0, $a0, $a0
             add $a0, $s0, $0
-            jal fib
+            jal fib  
 
             # Setting up for printing the numbers
             add $a0, $v0, $0
             li $v0, 1
             syscall 
 
-            # Checking for breaking the loop
+            # Escaping from printing the last ','
             lw $v0, 0($sp)
-            beq $s0, $v0, exit
-            addi $s0, $s0, 1  
+            ble $v0, $s0 exit
 
             # Printing message 2 and starting the next iteration
             li $v0, 4
