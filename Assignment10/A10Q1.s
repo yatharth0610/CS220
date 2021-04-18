@@ -2,7 +2,7 @@
         message1: .asciiz "Enter n: "
         message2: .asciiz "Enter array elements line by line: "
         message3: .asciiz "Enter integer to search for: "
-        message4: .asciiz "Found element at index "
+        message4: .asciiz "Found element at zero based index: "
         message5: .asciiz "Element was not found"
         message6: .asciiz "No array to search in"
         arr: .space 48
