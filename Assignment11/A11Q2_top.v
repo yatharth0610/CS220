@@ -2,16 +2,16 @@ module top;
 
     // Inputs
     reg clk;
-    reg [32:0] dividend;
-    reg [32:0] divisor;
+    reg [31:0] dividend;
+    reg [31:0] divisor;
     reg [4:0] m;
     reg [4:0] n;
     reg ready;
 
     // Outputs
     wire done;
-    wire [32:0] q;
-    wire [32:0] rem;
+    wire [31:0] q;
+    wire [31:0] rem;
     wire [4:0] num_add;
     wire [4:0] num_sub;
     wire output_valid;
@@ -107,7 +107,7 @@ module top;
             counter <= counter + 1;
         end
         else if (done == 1 && counter == 9) begin
-            dividend <= 513;
+            dividend <= 53;
             divisor <= 65;
             m <= 10;
             n <= 7;

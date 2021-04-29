@@ -2,21 +2,21 @@ module divider(clk, dividend, divisor, m, n, ready, done, q, rem, num_add, num_s
 
     // Inputs 
     input clk;
-    input [32:0] dividend;
-    input [32:0] divisor;
+    input [31:0] dividend;
+    input [31:0] divisor;
     input [4:0] m;
     input [4:0] n;
     input ready;
 
     // Outputs 
     output reg done = 1;
-    output reg [32:0] rem;
-    output reg [32:0] q;
+    output reg [31:0] rem;
+    output reg [31:0] q;
     output reg [4:0] num_add ;
     output reg [4:0] num_sub ;
     
     // Module vars
-    reg [32:0] temp_divisor;
+    reg [31:0] temp_divisor;
     reg count_clk = 0;
     reg [4:0] count;
 
