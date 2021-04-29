@@ -15,6 +15,8 @@ module multiplier(clk, multiplicand, multiplier, ready, done, product, num_add, 
     // Module vars
     reg [5:0] count;
     reg curr;
+    reg [31:0] temp = 32'b11111111111111111111111111111111;
+    reg [31:0] check;
 
     // Module logic
     always @(posedge clk) begin
@@ -27,7 +29,17 @@ module multiplier(clk, multiplicand, multiplier, ready, done, product, num_add, 
             num_sub = 0; 
         end 
         else if (done == 0) begin
-            // || multiplier[31:count] == 0 - curr
+            if (curr == 1) begin
+                check = multiplier ^ temp;
+                if (check <= (1<<(count-2))) begin
+                    done <= 1;
+                end
+            end
+            else if (curr == 0) begin
+                if (multiplier <= (1 << (count-2))) begin
+                    done <= 1;
+                end
+            end
             if (count == 32) begin
                 done <= 1;
             end
