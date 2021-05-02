@@ -109,7 +109,7 @@ module top;
         else if (done == 1 && counter == 9) begin
             dividend <= 53;
             divisor <= 65;
-            m <= 10;
+            m <= 6;
             n <= 7;
             ready <= 1;
             counter <= counter + 1;
